@@ -17,7 +17,7 @@ app.options('*', cors(corsOptions));
 
 mongoose
   .connect(
-    'mongodb+srv://elmirdevland:r1n6YyvHEMCqP0kg@cluster0.sgqlwbw.mongodb.net/DrinksLogger?retryWrites=true&w=majority&appName=Cluster0'
+    'mongodb+srv://elmirdevland:r1n6YyvHEMCqP0kg@cluster0.sgqlwbw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
   )
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('Failed to connect to MongoDB', err));
