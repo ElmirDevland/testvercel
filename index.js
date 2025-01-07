@@ -5,6 +5,15 @@ const mongoose = require('mongoose');
 const app = express();
 
 app.use(express.json());
+const corsOptions = {
+  origin: 'https://investcafe.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 mongoose
   .connect(
