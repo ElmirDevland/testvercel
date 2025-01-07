@@ -33,7 +33,7 @@ const drinkSchema = new mongoose.Schema({
 const Drink = drinksDb.model('Drink', drinkSchema);
 
 app.get('/drinks', async function (req, res) {
-  const drinks = await Drink.find(query);
+  const drinks = await Drink.find();
   res.status(200).json(drinks);
 });
 
