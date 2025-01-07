@@ -15,23 +15,27 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
-// mongoose
-//   .connect(
-//     'mongodb+srv://elmirdevland:r1n6YyvHEMCqP0kg@cluster0.sgqlwbw.mongodb.net/DrinksLogger?retryWrites=true&w=majority&appName=Cluster0'
-//   )
-//   .then(() => console.log('Connected to MongoDB'))
-//   .catch((err) => console.error('Failed to connect to MongoDB', err));
+mongoose
+  .connect(
+    'mongodb+srv://elmirdevland:r1n6YyvHEMCqP0kg@cluster0.sgqlwbw.mongodb.net/DrinksLogger?retryWrites=true&w=majority&appName=Cluster0'
+  )
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Failed to connect to MongoDB', err));
 
-// const drinkSchema = new mongoose.Schema({
-//   name: String,
-//   quantity: Number,
-//   date: { type: Date, default: Date.now },
-// });
+const drinksDb = mongoose.connection.useDb('DrinksLogger');
 
-// app.get('/drinks', function (req, res) {
-//   const drinks = await Drink.find(query);
-//   res.status(200).json(drinks);
-// });
+const drinkSchema = new mongoose.Schema({
+  name: String,
+  quantity: Number,
+  date: { type: Date, default: Date.now },
+});
+
+const Drink = drinksDb.model('Drink', drinkSchema);
+
+app.get('/drinks', async function (req, res) {
+  const drinks = await Drink.find(query);
+  res.status(200).json(drinks);
+});
 
 app.get('/', function (req, res) {
   res.send('Hello World');
